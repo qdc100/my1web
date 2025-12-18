@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 gunicorn*
+xx*
 
 # 忽略Django生成的临时文件
 *.log
@@ -39,4 +40,3 @@ venv.bak/
 
 # 忽略媒体文件
 media/
-
