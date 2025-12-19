@@ -27,14 +27,14 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-#this is for https 
-#CSRF_COOKIE_SECURE = True
-#SESSION_COOKIE_SECURE = True
 
 # Application definition
 
 INSTALLED_APPS = [
     'learning_logs',
+    'accounts',
+
+    'django_bootstrap5',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -120,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+LOGIN_REDIRECT_URL='learning_logs:index'
+LOGOUT_REDIRECT_URL='learning_logs:index'
+LOGIN_URL='accounts:login'
