@@ -2,8 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-gunicorn*
-xx*
 
 # 忽略Django生成的临时文件
 *.log
@@ -13,7 +11,7 @@ __pycache__/
 local_settings.py
 
 # 忽略数据库文件
-*.sqlite3
+#*.sqlite3
 *.sqlite3-journal
 
 # 忽略IDE和编辑器生成的文件
