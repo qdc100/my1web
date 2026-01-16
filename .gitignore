@@ -14,6 +14,9 @@ local_settings.py
 *.sqlite3
 *.sqlite3-journal
 
+#忽略collectstatic生成的文件而在服务器自己生成
+staticfiles/
+
 # 忽略IDE和编辑器生成的文件
 .vscode/
 *.sublime*

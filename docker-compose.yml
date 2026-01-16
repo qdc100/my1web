@@ -1,0 +1,50 @@
+# ==================== Docker Compose 执行过程说明 ====================
+
+# Docker Compose 文件格式版本
+# version: '3.8' 表示使用 Docker Compose 文件格式版本 3.8
+# 这个版本支持最新的 Docker Compose 功能
+version: '3.8'
+
+# 定义服务列表
+# 每个服务对应一个或多个容器
+services:
+  # 定义 web 服务（Django 应用）
+  web:
+    # 使用当前目录的 Dockerfile 构建镜像
+    # - . 表示 Dockerfile 在当前目录
+    # - 执行过程：读取 Dockerfile，按照步骤构建镜像
+    build: .
+
+    # 端口映射配置
+    # - "8000:8000" 表示将宿主机的 8000 端口映射到容器的 8000 端口
+    # - 格式：宿主机端口:容器端口
+    # - 映射后可以通过 http://localhost:8000 访问应用
+    ports:
+      - "8000:8000"
+
+    # 数据卷挂载配置
+    # - ./db.sqlite3:/app/db.sqlite3 表示将宿主机的 db.sqlite3 文件挂载到容器的 /app/db.sqlite3
+    # - 这样容器内的数据库文件会与宿主机同步，容器删除后数据不会丢失
+    # - 格式：宿主机路径:容器路径
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3
+
+    # 环境变量配置
+    # 这些环境变量会在容器启动时注入到容器内部
+    # Django 应用可以通过 os.environ.get() 读取这些变量
+    environment:
+      # DEBUG=False: 关闭 Django 调试模式（生产环境必须关闭）
+      - DEBUG=False
+      # SECRET_KEY: Django 的加密密钥，用于密码加密、CSRF 保护等
+      - WARNING: 生产环境应该使用更安全的密钥，不要直接写在这里
+      - SECRET_KEY=(@3fqlpdhnzn*+f598^_8=@07k2wn8-=vfy_#cq(cavv4%!s6%
+      # ALLOWED_HOSTS: 允许访问的主机名列表
+      # - zxnas.com: 域名
+      # - localhost: 本地访问
+      # - 192.168.1.99: 内网 IP 访问
+      - ALLOWED_HOSTS=zxnas.com,localhost,192.168.1.99
+
+    # 重启策略配置
+    # - unless-stopped: 除非手动停止，否则容器退出时自动重启
+    # - 其他选项：no（不重启）、always（总是重启）、on-failure（失败时重启）
+    restart: unless-stopped

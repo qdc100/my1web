@@ -1,22 +1,26 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
-    <p>Topic: {{ topic.text }}</p>
-    <p>Entries:</p>
+    <p>学科：{{ topic.text }}</p>
+    <p>知识点：</p>
     <p>
-        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+        <a href="{% url 'learning_logs:new_entry' topic.id %}">新增一个知识点</a>
     </p>
     <ul>
         {% for entry in entries %}
         <li>
         <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+        {% if entry.image %}
+            <img src="{{ entry.image.url }}" alt="知识点图片" style="max-width: 300px; max-height: 300px;">
+        {% endif %}
         <p>{{ entry.text|linebreaks }}</p>
         <p>
-            <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}">编辑这条</a>
+            <a href="{% url 'learning_logs:delete_entry' entry.id %}" onclick="return false">删除这条</a>
         </p>
         </li>
         {% empty %}
-        <li>There are no entries for this topic yet.</li>
+        <li>本学科还没有知识点</li>
         {% endfor %}
     </ul>
 {% endblock content %}

@@ -1,15 +1,14 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
-    <p>Topics</p>
     <ul>
         {% for topic in topics %}
             <li>
-                <a href="{% url 'learning_logs:topic' topic.id %}" >{{topic.text}}</a>
+               <p> <a href="{% url 'learning_logs:topic' topic.id %}" >{{topic.text}}</a></p>
             </li>
         {% empty %}
-            <li>No topics have been added yet.</li>
+            <li>没有学科</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
+    <a href="{% url 'learning_logs:new_topic' %}">新增一门学科</a>
 {% endblock %}
